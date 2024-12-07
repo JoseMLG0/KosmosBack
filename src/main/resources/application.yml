@@ -1,0 +1,47 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    url: jdbc:postgresql://20.55.111.62:5432/test
+    username: test
+    password: test123
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: KosmosPool
+      maximum-pool-size: 5
+      connection-timeout: 20000
+      max-lifetime: 60000
+      idle-timeout: 30000
+      minimum-idle: 1
+      auto-commit: true
+
+  jpa:
+    open-in-view: false
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: public
+        globally_quoted_identifiers: true
+        enable_lazy_load_no_trans: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # Exponer todos los endpoints. Usa una lista específica en producción (por ejemplo, "health,info").
+  endpoint:
+    health:
+      show-details: always # Muestra detalles completos del estado de salud
